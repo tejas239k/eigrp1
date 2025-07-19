@@ -1,0 +1,99 @@
+#R1#
+
+enable
+configure terminal
+hostname R1
+interface fa0/0
+ip address 192.168.13.1 255.255.255.0
+no shutdown
+exit
+interface fa0/1
+ip address 192.168.12.1 255.255.255.0
+no shutdown
+exit
+
+interface loopback 0
+ip address 192.168.0.1 255.255.255.0
+
+interface loopback 1
+ip address 192.168.1.1 255.255.255.0
+
+interface loopback 2
+ip address 192.168.2.1 255.255.255.0
+
+interface loopback 3
+ip address 192.168.3.1 255.255.255.0
+
+
+router eigrp 10
+network 192.168.12.0
+network 192.168.13.0
+network 192.168.0.0
+network 192.168.1.0
+network 192.168.2.0
+network 192.168.3.0
+no auto-summary
+
+---------------------------------------------
+#R2#
+
+enable
+configure terminal
+hostname R2
+interface fa0/0
+ip address 192.168.12.2 255.255.255.0
+no shutdown
+exit
+interface fa0/1
+ip address 192.168.24.2 255.255.255.0
+no shutdown
+exit
+
+router eigrp 10
+network 192.168.12.0
+network 192.168.24.0
+no auto-summary
+
+----------------------------------------------
+#R3#
+
+enable
+configure terminal
+hostname R3
+interface fa0/0
+ip address 192.168.13.3 255.255.255.0
+no shutdown
+exit
+interface fa0/1
+ip address 192.168.34.3 255.255.255.0
+no shutdown
+exit
+
+router eigrp 10
+network 192.168.13.0
+network 192.168.34.0
+no auto-summary
+
+---------------------------------------------
+#R4#
+
+enable
+configure terminal
+hostname R4
+interface fa0/0
+ip address 192.168.24.4 255.255.255.0
+no shutdown
+exit
+interface fa0/1
+ip address 192.168.34.4 255.255.255.0
+no shutdown
+exit
+
+interface loopback 0
+ip address 4.4.4.1 255.255.255.0
+
+router eigrp 10
+network 192.168.24.0
+network 192.168.34.0
+network 4.4.4.0
+no auto-summary
